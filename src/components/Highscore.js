@@ -1,7 +1,11 @@
 import React from "react";
 
-const Highscore = (props) => {
-  return <div>Trenutni higiscore: {props.highscore}</div>;
+const Highscore = ({ highscore }) => {
+  return (
+    <div style={{ backgroundColor: "red" }}>
+      Trenutni highscore: {highscore}
+    </div>
+  );
 };
 
 export default Highscore;
