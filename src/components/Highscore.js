@@ -2,9 +2,11 @@ import React from "react";
 
 const Highscore = ({ highscore }) => {
   return (
-    <div style={{ backgroundColor: "red" }}>
-      Trenutni highscore: {highscore}
-    </div>
+    <ul style={{ backgroundColor: "red" }}>
+      {highscore.map((element, index) => {
+        return <li key={index}>Trenutni highscore je: {element}</li>;
+      })}
+    </ul>
   );
 };
 
