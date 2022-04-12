@@ -2,14 +2,24 @@ import React, { Component } from "react";
 import Highscore from "./components/Highscore";
 import Igrica from "./components/Igrica";
 import Clock from "./components/Clock";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     const stanje = JSON.parse(localStorage.getItem("stanje"));
     this.state = stanje
-      ? stanje
+      ? {
+          ...stanje,
+          brojPokusaja: 0,
+          feedback: "",
+          zamisljeniBroj: Math.floor(Math.random() * 101),
+        }
       : {
           highscore: [],
           brojPokusaja: 0,
@@ -53,22 +63,30 @@ export default class App extends Component {
 
   render() {
     return (
-      <div
-        className="Main-div"
-        // style={{
-        //   textAlign: "center",
-        //   margin: "0 250px",
-        //   border: "2px double black",
-        // }}
-      >
-        <Igrica
-          brojPokusaja={this.state.brojPokusaja}
-          zamisljeniBroj={this.state.zamisljeniBroj}
-          feedback={this.state.feedback}
-          promijeniStanje={(feedback) => this.promijeniStanje(feedback)}
-        />
-        <Highscore highscore={this.state.highscore} />
-        <Clock />
+      <div className="Main-div">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route
+              path="/igra1"
+              element={
+                <Igrica
+                  brojPokusaja={this.state.brojPokusaja}
+                  zamisljeniBroj={this.state.zamisljeniBroj}
+                  feedback={this.state.feedback}
+                  promijeniStanje={(feedback) => this.promijeniStanje(feedback)}
+                />
+              }
+            />
+            <Route
+              path="/highscores"
+              element={<Highscore highscore={this.state.highscore} />}
+            />
+          </Routes>
+          <Clock />
+        </main>
+        <Footer />
       </div>
     );
   }

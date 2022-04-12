@@ -24,19 +24,10 @@ const Igrica = ({
   }
 
   return (
-    <div
-      style={{
-        backgroundColor: "lightblue",
-      }}
-    >
+    <div className="Igrica-style">
       <form onSubmit={provjeriBroj}>
         <input
-          style={{
-            width: "300px",
-            textAlign: "center",
-            padding: "5px 10px",
-            fontWeight: "bold",
-          }}
+          className="Input-style"
           type="number"
           id="unosBroja"
           placeholder="Pogodite broj koji sam zamislio (0 - 100)"
@@ -49,6 +40,7 @@ const Igrica = ({
         }}
         id="feedback"
       >
+        {" "}
         {feedback}
       </div>
     </div>

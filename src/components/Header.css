@@ -1,0 +1,16 @@
+Header {
+  background-color: red;
+  text-align: initial;
+  display: flex;
+  justify-content: space-between;
+  place-items: center;
+  margin: 10px 10px;
+}
+
+#naslovnaSlika {
+  height: 150px;
+}
+
+nav {
+  height: fit-content;
+}

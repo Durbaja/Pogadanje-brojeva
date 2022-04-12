@@ -3,31 +3,27 @@ import React from "react";
 class Clock extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { date: new Date() };
+    this.state = {
+      time: new Date().toLocaleString(),
+    };
   }
-
   componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000);
+    this.intervalID = setInterval(() => this.tick(), 1000);
   }
-
   componentWillUnmount() {
-    clearInterval(this.timerID);
+    clearInterval(this.intervalID);
   }
-
   tick() {
     this.setState({
-      date: new Date(),
+      time: new Date().toLocaleString(),
     });
   }
-
   render() {
     return (
-      <div style={{ backgroundColor: "yellow" }}>
-        <h1>Hello, World</h1>
-        <h2>It is {this.state.date.toLocaleDateString()}</h2>
-      </div>
+      <p className="Clock-style">
+        Pozdrav, Hrvatska! Trenutno je: {this.state.time}.
+      </p>
     );
   }
 }
-
 export default Clock;
