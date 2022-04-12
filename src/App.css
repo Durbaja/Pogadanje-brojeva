@@ -16,10 +16,10 @@ main {
   padding: 10px;
 }
 
-Footer {
+/* Footer {
   background-color: rgb(62, 62, 219);
   margin: 10px 10px;
-}
+} */
 
 .Input-style {
   width: 80%;
@@ -46,13 +46,13 @@ Footer {
   gap: 1rem;
   background-color: lightblue;
   padding: 0.5rem;
-  border-bottom: 5px solid red;
+  border: 5px solid red;
 }
 
 .Clock-style {
-  border-top: 5px solid red;
-  background-color: darkkhaki;
+  border: 5px solid red;
+  background-color: lightblue;
   font-family: cursive;
   padding: 0.5rem;
-  margin: 0;
+  margin: 10px;
 }

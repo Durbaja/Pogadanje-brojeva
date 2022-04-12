@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Highscore from "./components/Highscore";
 import Igrica from "./components/Igrica";
-import Clock from "./components/Clock";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
@@ -84,7 +83,6 @@ export default class App extends Component {
               element={<Highscore highscore={this.state.highscore} />}
             />
           </Routes>
-          <Clock />
         </main>
         <Footer />
       </div>

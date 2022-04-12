@@ -7,13 +7,10 @@ const Header = () => {
   return (
     <header>
       <Link className="navbar-brand" to="/">
-        <img id="naslovnaSlika" src={trokutLogo} alt="trokut logo" />{" "}
+        <img src={trokutLogo} alt="trokut logo" />{" "}
       </Link>
 
-      <nav
-        className="navbar navbar-expand-lg navbar-light bg-light"
-        style={{ height: "fit-content" }}
-      >
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -33,7 +30,7 @@ const Header = () => {
                   Pogađanje Brojeva
                 </Link>
               </li>
-              <li classNameName="nav-item">
+              <li className="nav-item">
                 <Link to="/highscores" className="nav-link ">
                   Highscores
                 </Link>
