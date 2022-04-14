@@ -2,8 +2,10 @@ import React from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@fortawesome/fontawesome-free/js/solid.js";
 import "./Login.css";
+import { Link, Navigate } from "react-router-dom";
 
-const Login = () => {
+const Login = (handleLogin) => {
+  // setUsername = () => {};
   return (
     <div>
       <form id="loginForma">
@@ -19,12 +21,14 @@ const Login = () => {
           </label> */}
         </div>
 
-        <button
+        <Link
+          to="/igra1"
+          onClick={() => handleLogin("Tomislav")}
           type="button"
           className="btn btn-primary btn-block mb-4 form-control"
         >
           Login
-        </button>
+        </Link>
 
         {/* Register button */}
         <div className="text-center">

@@ -17,15 +17,23 @@ export default class App extends Component {
           ...stanje,
           brojPokusaja: 0,
           feedback: "",
+          username: "",
           zamisljeniBroj: Math.floor(Math.random() * 101),
         }
       : {
           highscore: [],
           brojPokusaja: 0,
           feedback: "",
+          username: "",
           zamisljeniBroj: Math.floor(Math.random() * 101),
         };
   }
+
+  handleLogin = (username) => {
+    this.setState((state) => {
+      return username.username;
+    });
+  };
 
   promijeniStanje = (feedback) => {
     let novoStanje;
@@ -63,10 +71,16 @@ export default class App extends Component {
   render() {
     return (
       <div className="Main-div">
+        {this.state.username}
         <Header />
         <main>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route
+              path="/"
+              element={
+                <Login handleLogin={(username) => this.handleLogin(username)} />
+              }
+            />
             <Route
               path="/igra1"
               element={
