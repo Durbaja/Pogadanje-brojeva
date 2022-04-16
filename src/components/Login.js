@@ -4,8 +4,15 @@ import "@fortawesome/fontawesome-free/js/solid.js";
 import "./Login.css";
 import { Link, Navigate } from "react-router-dom";
 
-const Login = (handleLogin) => {
-  // setUsername = () => {};
+const Login = ({ handleLogin, inputName }) => {
+  const handleInput = (e) => {
+    handleLogin("", e.target.value);
+  };
+
+  const handleSetUsername = () => {
+    handleLogin(inputName);
+  };
+
   return (
     <div>
       <form id="loginForma">
@@ -14,23 +21,23 @@ const Login = (handleLogin) => {
             placeholder="Username..."
             type="text"
             id="form2Example1"
+            value={inputName}
+            onChange={(e) => handleInput(e)}
             className="form-control"
           />
-          {/* <label className="form-label" htmlForm="form2Example1">
-            Username
-          </label> */}
         </div>
 
         <Link
           to="/igra1"
-          onClick={() => handleLogin("Tomislav")}
+          onClick={() => handleSetUsername()}
           type="button"
           className="btn btn-primary btn-block mb-4 form-control"
         >
+          {" "}
           Login
         </Link>
 
-        {/* Register button */}
+        {/* Social media buttons */}
         <div className="text-center">
           <button type="button" className="btn btn-link btn-floating mx-1">
             <i className="fab fa-facebook-f"></i>

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Highscore from "./components/Highscore";
-import Igrica from "./components/Igrica";
+import IgraPogadanjeBrojeva from "./components/IgraPogadanjeBrojeva";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 
 export default class App extends Component {
@@ -14,24 +14,26 @@ export default class App extends Component {
     const stanje = JSON.parse(localStorage.getItem("stanje"));
     this.state = stanje
       ? {
-          ...stanje,
+          highscore: stanje.highscore,
           brojPokusaja: 0,
           feedback: "",
           username: "",
+          inputName: "",
           zamisljeniBroj: Math.floor(Math.random() * 101),
         }
       : {
-          highscore: [],
+          highscore: { pogadanjeBrojeva: [], igraBoja: [] },
           brojPokusaja: 0,
           feedback: "",
           username: "",
+          inputName: "",
           zamisljeniBroj: Math.floor(Math.random() * 101),
         };
   }
 
-  handleLogin = (username) => {
+  handleLogin = (username = "", inputName = "") => {
     this.setState((state) => {
-      return username.username;
+      return { username: username, inputName: inputName };
     });
   };
 
@@ -39,11 +41,25 @@ export default class App extends Component {
     let novoStanje;
     if (feedback === "Pogodak") {
       let noviBroj = Math.floor(Math.random() * 101);
+      let stariHighscore = this.state.highscore.pogadanjeBrojeva;
+      let rezultatKojegUnosimo = this.state.brojPokusaja + 1;
+      let userObject = {
+        ime: this.state.username,
+        rezultat: rezultatKojegUnosimo,
+      };
+
+      let index = stariHighscore.findIndex((element) => {
+        return element.rezultat >= rezultatKojegUnosimo;
+      });
+      if (index === -1) index = stariHighscore.length;
+      stariHighscore.splice(index, 0, userObject);
+
       novoStanje = {
         ...this.state,
-        highscore: [...this.state.highscore, this.state.brojPokusaja + 1].sort(
-          (a, b) => a - b
-        ),
+        highscore: {
+          ...this.state.highscore,
+          pogadanjeBrojeva: [...this.state.highscore.pogadanjeBrojeva],
+        },
         brojPokusaja: 0,
         zamisljeniBroj: noviBroj,
         feedback:
@@ -71,22 +87,27 @@ export default class App extends Component {
   render() {
     return (
       <div className="Main-div">
-        {this.state.username}
         <Header />
         <main>
           <Routes>
             <Route
               path="/"
               element={
-                <Login handleLogin={(username) => this.handleLogin(username)} />
+                <Login
+                  inputName={this.state.inputName}
+                  handleLogin={(username, inputName) =>
+                    this.handleLogin(username, inputName)
+                  }
+                />
               }
             />
             <Route
               path="/igra1"
               element={
-                <Igrica
+                <IgraPogadanjeBrojeva
                   brojPokusaja={this.state.brojPokusaja}
                   zamisljeniBroj={this.state.zamisljeniBroj}
+                  username={this.state.username}
                   feedback={this.state.feedback}
                   promijeniStanje={(feedback) => this.promijeniStanje(feedback)}
                 />

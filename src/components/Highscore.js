@@ -32,12 +32,6 @@ const Highscore = ({ highscore }) => {
         </tr>
       </tbody>
     </Table>
-
-    // <ul style={{ backgroundColor: "red" }}>
-    //   {highscore.map((element, index) => {
-    //     return <li key={index}>Trenutni highscore je: {element}</li>;
-    //   })}
-    // </ul>
   );
 };
 

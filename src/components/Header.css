@@ -2,7 +2,7 @@ Header {
   background-color: lightblue;
   text-align: initial;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   place-items: center;
   margin: 10px 10px;
   height: 20vh;

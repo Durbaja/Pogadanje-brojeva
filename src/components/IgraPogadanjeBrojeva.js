@@ -1,9 +1,11 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 
-const Igrica = ({
+const IgraPogadanjeBrojeva = ({
   brojPokusaja,
   zamisljeniBroj,
   promijeniStanje,
+  username,
   feedback,
 }) => {
   function provjeriBroj(e) {
@@ -24,7 +26,8 @@ const Igrica = ({
   }
 
   return (
-    <div className="Igrica-style">
+    <div className="IgraPogadanjeBrojeva-style">
+      {username || <Navigate to="/" replace={true} />}
       <form onSubmit={provjeriBroj}>
         <input
           className="Input-style"
@@ -40,11 +43,10 @@ const Igrica = ({
         }}
         id="feedback"
       >
-        {" "}
         {feedback}
       </div>
     </div>
   );
 };
 
-export default Igrica;
+export default IgraPogadanjeBrojeva;
