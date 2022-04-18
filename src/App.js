@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import Highscore from "./components/Highscore";
+import Highscore from "./components/Highscore/Index";
 import IgraPogadanjeBrojeva from "./components/IgraPogadanjeBrojeva";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
+import Igra1Highscore from "./components/Highscore/Igra1";
 
 export default class App extends Component {
   constructor(props) {
@@ -116,7 +117,17 @@ export default class App extends Component {
             <Route
               path="/highscores"
               element={<Highscore highscore={this.state.highscore} />}
-            />
+            >
+              <Route
+                path="igra1"
+                element={
+                  <Igra1Highscore
+                    highscore={this.state.highscore}
+                    username={this.state.username}
+                  />
+                }
+              />
+            </Route>
           </Routes>
         </main>
         <Footer />

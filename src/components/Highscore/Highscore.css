@@ -1,0 +1,17 @@
+.table-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.table-links a {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.table-links a:hover {
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+}

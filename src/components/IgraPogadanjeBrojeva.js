@@ -27,7 +27,8 @@ const IgraPogadanjeBrojeva = ({
 
   return (
     <div className="IgraPogadanjeBrojeva-style">
-      {username || <Navigate to="/" replace={true} />}
+      Dobrodošao, {username || <Navigate to="/" replace={true} />}, sretno sa
+      pogađanjem!
       <form onSubmit={provjeriBroj}>
         <input
           className="Input-style"
