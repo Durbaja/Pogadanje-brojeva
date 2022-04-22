@@ -7,7 +7,7 @@ const Igra1Highscore = ({ highscore, username }) => {
   );
   return (
     <div>
-      <PrikazHighscore parcijalniHighscore={highscore.pogadjanjeBrojeva} />
+      <PrikazHighscore parcijalniHighscore={highscore.pogadanjeBrojeva} />
       <PrikazHighscore parcijalniHighscore={Osobni} />
     </div>
   );

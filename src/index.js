@@ -11,4 +11,6 @@ createRoot(document.getElementById("root")).render(
   </BrowserRouter>
 );
 
+console.log(App.defaultProps());
+
 reportWebVitals();

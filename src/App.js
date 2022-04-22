@@ -8,29 +8,33 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Igra1Highscore from "./components/Highscore/Igra1";
+import izracunaj from "./services/IzracunajIgru1";
+// import VjezbamoHookice from "./components/VjezbamoHookice";
+// import ProbaKonteksta from "./containers/ProbaKonteksta";
+
+import { MojaTemaContext } from "./services/Konteksti";
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     const stanje = JSON.parse(localStorage.getItem("stanje"));
-    this.state = stanje
-      ? {
-          highscore: stanje.highscore,
-          brojPokusaja: 0,
-          feedback: "",
-          username: "",
-          inputName: "",
-          zamisljeniBroj: Math.floor(Math.random() * 101),
-        }
-      : {
-          highscore: { pogadanjeBrojeva: [], igraBoja: [] },
-          brojPokusaja: 0,
-          feedback: "",
-          username: "",
-          inputName: "",
-          zamisljeniBroj: Math.floor(Math.random() * 101),
-        };
+    const inicijalnoStanje = {
+      highscore: stanje
+        ? stanje.highscore
+        : { pogadanjeBrojeva: [], igraBoja: [] },
+      brojPokusaja: 0,
+      feedback: "",
+      username: "",
+      inputName: "",
+      zamisljeniBroj: Math.floor(Math.random() * 101),
+    };
+    this.state = inicijalnoStanje;
   }
+
+  // setting defaultProps of Proizvod props to Čekić in case it's not defined  within the code
+  // static defaultProps = {
+  //   proizvod: "Čekić",
+  // };
 
   handleLogin = (username = "", inputName = "") => {
     this.setState((state) => {
@@ -39,99 +43,68 @@ export default class App extends Component {
   };
 
   promijeniStanje = (feedback) => {
-    let novoStanje;
-    if (feedback === "Pogodak") {
-      let noviBroj = Math.floor(Math.random() * 101);
-      let stariHighscore = this.state.highscore.pogadanjeBrojeva;
-      let rezultatKojegUnosimo = this.state.brojPokusaja + 1;
-      let userObject = {
-        ime: this.state.username,
-        rezultat: rezultatKojegUnosimo,
-      };
-
-      let index = stariHighscore.findIndex((element) => {
-        return element.rezultat >= rezultatKojegUnosimo;
-      });
-      if (index === -1) index = stariHighscore.length;
-      stariHighscore.splice(index, 0, userObject);
-
-      novoStanje = {
-        ...this.state,
-        highscore: {
-          ...this.state.highscore,
-          pogadanjeBrojeva: [...this.state.highscore.pogadanjeBrojeva],
-        },
-        brojPokusaja: 0,
-        zamisljeniBroj: noviBroj,
-        feedback:
-          "Pobijedili ste. Pogodili ste iz " +
-          (this.state.brojPokusaja + 1) +
-          ". puta. Zaigrajte ponovno.",
-      };
-    } else if (feedback === "Manji") {
-      novoStanje = {
-        ...this.state,
-        brojPokusaja: this.state.brojPokusaja + 1,
-        feedback: "Zamišljeni broj je manji od unesenog!",
-      };
-    } else if (feedback === "Veći") {
-      novoStanje = {
-        ...this.state,
-        brojPokusaja: this.state.brojPokusaja + 1,
-        feedback: "Zamišljeni broj je veći od unesenog!",
-      };
-    }
+    let novoStanje = izracunaj(feedback, this.state);
     localStorage.setItem("stanje", JSON.stringify(novoStanje));
     this.setState(novoStanje);
   };
 
   render() {
     return (
-      <div className="Main-div">
-        <Header />
-        <main>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Login
-                  inputName={this.state.inputName}
-                  handleLogin={(username, inputName) =>
-                    this.handleLogin(username, inputName)
-                  }
-                />
-              }
-            />
-            <Route
-              path="/igra1"
-              element={
-                <IgraPogadanjeBrojeva
-                  brojPokusaja={this.state.brojPokusaja}
-                  zamisljeniBroj={this.state.zamisljeniBroj}
-                  username={this.state.username}
-                  feedback={this.state.feedback}
-                  promijeniStanje={(feedback) => this.promijeniStanje(feedback)}
-                />
-              }
-            />
-            <Route
-              path="/highscores"
-              element={<Highscore highscore={this.state.highscore} />}
-            >
+      <MojaTemaContext.Provider
+        value={{ Pozdrav: "Dobar dan", odzdrav: "Laku noć" }}
+      >
+        <div className="Main-div">
+          {/* <VjezbamoHookice />
+          <ProbaKonteksta /> */}
+          <Header />
+          <main>
+            <Routes>
               <Route
-                path="igra1"
+                path="/"
                 element={
-                  <Igra1Highscore
-                    highscore={this.state.highscore}
-                    username={this.state.username}
+                  <Login
+                    inputName={this.state.inputName}
+                    handleLogin={(username, inputName) =>
+                      this.handleLogin(username, inputName)
+                    }
                   />
                 }
               />
-            </Route>
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+              <Route
+                path="/igra1"
+                element={
+                  <IgraPogadanjeBrojeva
+                    brojPokusaja={this.state.brojPokusaja}
+                    zamisljeniBroj={this.state.zamisljeniBroj}
+                    username={this.state.username}
+                    feedback={this.state.feedback}
+                    promijeniStanje={(feedback) =>
+                      this.promijeniStanje(feedback)
+                    }
+                  />
+                }
+              />
+              <Route
+                path="/highscores"
+                element={<Highscore highscore={this.state.highscore} />}
+              >
+                <Route
+                  path="igra1"
+                  element={
+                    <Igra1Highscore
+                      highscore={this.state.highscore}
+                      username={this.state.username}
+                    />
+                  }
+                />
+              </Route>
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </MojaTemaContext.Provider>
     );
   }
 }
+
+export { MojaTemaContext };

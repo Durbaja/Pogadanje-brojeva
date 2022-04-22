@@ -40,7 +40,11 @@ const Login = ({ handleLogin, inputName }) => {
         {/* Social media buttons */}
         <div className="text-center">
           <button type="button" className="btn btn-link btn-floating mx-1">
-            <i className="fab fa-facebook-f"></i>
+            {" "}
+            <a target="_blank" rel="noreferrer" href="http://www.google.com">
+              {" "}
+              <i className="fab fa-facebook-f"> </i>
+            </a>
           </button>
 
           <button type="button" className="btn btn-link btn-floating mx-1">

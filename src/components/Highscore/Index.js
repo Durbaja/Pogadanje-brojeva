@@ -4,7 +4,7 @@ import "./Highscore.css";
 
 const Highscore = ({ highscore }) => {
   const [cijeliHighscore, setCijeliHighscore] = useState(highscore);
-
+  /* 
   // START OF Nevezano za naš projekt - za proučit malo
   const [nesto, setNesto] = useState("Nesto pise ");
 
@@ -17,11 +17,11 @@ const Highscore = ({ highscore }) => {
   // END OF Nevezano za naš projekt - za proučit malo
 
   useEffect(callbackFunction, [nesto]);
-
+*/
   return (
     <div>
-      {nesto}
-      <button onClick={() => setNesto(nesto + "A")}> Promijeni stanje </button>
+      {/* {nesto}
+      <button onClick={() => setNesto(nesto + "A")}> Promijeni stanje </button> */}
       <nav className="nav table-links">
         <NavLink
           className={({ isActive }) => {
